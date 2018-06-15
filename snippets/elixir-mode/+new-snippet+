@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: Elixir module
+# key: exmod
+# --
+defmodule $1 do
+  @moduledoc """
+  """
+  
+end

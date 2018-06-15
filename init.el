@@ -168,9 +168,6 @@ This is DEPRECATED, use %s instead." prelude-modules-file))
 ;;;
 ;;; Custom
 ;;;
-(require 'lsp-ui)
-(add-hook 'lsp-mode-hook 'lsp-ui-mode)
-
 (ivy-mode 1)
 (setq ivy-use-virtual-buffers t)
 (setq enable-recursive-minibuffers t)
@@ -190,5 +187,34 @@ This is DEPRECATED, use %s instead." prelude-modules-file))
 ;; (global-set-key (kbd "C-x l") 'counsel-locate)
 ;; (global-set-key (kbd "C-S-o") 'counsel-rhythmbox)
 ;; (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+
+(require 'yasnippet)
+(yas-global-mode 1)
+
+(require 'lsp-mode)
+(lsp-define-stdio-client
+ lsp-elixir-major-mode
+ "elixir"
+ (lambda () default-directory)
+ '("~/.emacs.d/elixir_ls/language_server.sh"))
+(add-hook 'elixir-mode-hook #'lsp-elixir-major-mode-enable)
+
+(require 'lsp-imenu)
+(add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
+
+(require 'lsp-ui)
+(add-hook 'lsp-mode-hook 'lsp-ui-mode)
+(add-hook 'elixir-mode-hook 'flycheck-mode)
+
+(add-hook 'after-init-hook 'global-company-mode)
+
+(require 'company-yasnippet)
+(push 'company-yasnippet company-backends)
+
+(require 'company-lsp)
+(push 'company-lsp company-backends)
+
+(show-paren-mode 1)
+(electric-pair-mode 1)
 
 ;;; init.el ends here
