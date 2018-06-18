@@ -217,4 +217,6 @@ This is DEPRECATED, use %s instead." prelude-modules-file))
 (show-paren-mode 1)
 (electric-pair-mode 1)
 
+(guru-global-mode 0)
+
 ;;; init.el ends here
