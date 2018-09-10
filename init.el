@@ -219,4 +219,15 @@ This is DEPRECATED, use %s instead." prelude-modules-file))
 
 (guru-global-mode 0)
 
+(require 'org)
+(setq org-agenda-files (list "~/my.org"
+                             "~/tml.org"))
+
+;; Cycle between snake case, camel case, etc.
+(require 'string-inflection)
+(global-set-key (kbd "C-S-c i") 'string-inflection-cycle)
+(global-set-key (kbd "C-S-c C") 'string-inflection-camelcase)        ;; Force to CamelCase
+(global-set-key (kbd "C-S-c L") 'string-inflection-lower-camelcase)  ;; Force to lowerCamelCase
+(global-set-key (kbd "C-S-c J") 'string-inflection-java-style-cycle) ;; Cycle through Java styles
+
 ;;; init.el ends here
