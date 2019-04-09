@@ -191,20 +191,7 @@ This is DEPRECATED, use %s instead." prelude-modules-file))
 (require 'yasnippet)
 (yas-global-mode 1)
 
-(require 'lsp-mode)
-(lsp-define-stdio-client
- lsp-elixir-major-mode
- "elixir"
- (lambda () default-directory)
- '("~/.emacs.d/elixir_ls/language_server.sh"))
-(add-hook 'elixir-mode-hook #'lsp-elixir-major-mode-enable)
-
-(require 'lsp-imenu)
-(add-hook 'lsp-after-open-hook 'lsp-enable-imenu)
-
-(require 'lsp-ui)
-(add-hook 'lsp-mode-hook 'lsp-ui-mode)
-(add-hook 'elixir-mode-hook 'flycheck-mode)
+(load "~/.emacs.d/init-elixir.el")
 
 (add-hook 'after-init-hook 'global-company-mode)
 
@@ -229,5 +216,9 @@ This is DEPRECATED, use %s instead." prelude-modules-file))
 (global-set-key (kbd "C-S-c C") 'string-inflection-camelcase)        ;; Force to CamelCase
 (global-set-key (kbd "C-S-c L") 'string-inflection-lower-camelcase)  ;; Force to lowerCamelCase
 (global-set-key (kbd "C-S-c J") 'string-inflection-java-style-cycle) ;; Cycle through Java styles
+
+;; Helm-ls-git
+(require 'helm-ls-git)
+(global-set-key (kbd "C-x C-d") 'helm-browse-project)
 
 ;;; init.el ends here
