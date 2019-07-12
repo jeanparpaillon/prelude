@@ -10,10 +10,11 @@
                                                 (concat (locate-dominating-file buffer-file-name ".formatter.exs") ".formatter.exs")))
                                   (setq elixir-format-arguments nil))))
 
+(add-hook 'elixir-mode-hook #'lsp)
+
 (add-hook 'elixir-mode-hook
           (lambda ()
             (flycheck-mode)
-            (lsp-elixir-enable)
             (add-hook 'before-save-hook #'elixir-maybe-format nil t)
             ))
 
@@ -30,7 +31,7 @@
 (flycheck-define-checker elixir-mix
   "An Elixir syntax checker using the Elixir interpreter.
 
-See URL `http://elixir-lang.org/'."
+  See URL `http://elixir-lang.org/'."
   :command ("mix"
             "compile"
             source-original)
@@ -68,10 +69,10 @@ See URL `http://elixir-lang.org/'."
 (with-eval-after-load 'lsp-mode
   (add-hook 'lsp-after-open-hook (lambda () (lsp-ui-flycheck-enable 1))))
 
-(defconst lsp-elixir--get-root (lsp-make-traverser #'(lambda (dir)
-                                                       (directory-files dir nil "mix.lock"))))
-(lsp-define-stdio-client lsp-elixir "elixir"
-                         lsp-elixir--get-root '("~/.emacs.d/elixir_ls/language_server.sh"))
+;; (defconst lsp-elixir--get-root (lsp-make-traverser #'(lambda (dir)
+;;                                                        (directory-files dir nil "mix.lock"))))
+;; (lsp-define-stdio-client lsp-elixir "elixir"
+;;                          lsp-elixir--get-root '("~/.emacs.d/elixir_ls/language_server.sh"))
 
 
 (add-hook 'lsp-after-initialize-hook (lambda ()
@@ -84,4 +85,3 @@ See URL `http://elixir-lang.org/'."
 (flycheck-add-next-checker 'lsp-ui '(warning . elixir-credo))
 
 (provide 'init-elixir)
-
